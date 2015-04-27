@@ -1,0 +1,51 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!--
+Pagina principal del sistema Jordan.
+-->    
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" 
+    "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:b="http://bootsfaces.net/ui"
+      xmlns:f="http://java.sun.com/jsf/core" 
+      xmlns:h="http://java.sun.com/jsf/html"
+      xmlns:p="http://primefaces.org/ui"
+      xmlns:ui="http://java.sun.com/jsf/facelets">
+    <ui:composition template="/Plantillas/user.xhtml">
+        <ui:define name="content">
+            
+            <h:form>
+                <h3>Top 5</h3>
+                <p:accordionPanel activeIndex="0,1,2,3,4" multiple="true" 
+                                  value="#{controladorLocal.top5}" var="_local" >
+                    <p:tab title="" >
+                        <h:panelGrid columns="1" width="100%">
+                            <h:panelGrid columns="2" cellpadding="10">
+                                <h:panelGrid columns="2" cellpadding="10">
+                                    <p:outputLabel value="#{controladorLocal.posicion}" 
+                                                   style="font-size: 30pt"/>
+                                    <h:graphicImage width="150" height="150"
+                                                    rendered="#{_local.imagen ne null}"
+                                                    value="data:image/png;base64,#{_local.imagenUrl}"/> 
+                                </h:panelGrid>
+                                <h:panelGrid columns="1" width="100%" >
+                                    <h:panelGrid columns="2" width="100%" >
+                                        <p:commandLink ajax="false" action="local.xhtml" 
+                                                       value="#{_local.nombre} (#{_local.alias})"
+                                                       actionListener="#{controladorLocal.setLocal(_local)}"
+                                                       style="font-size: 14pt"/>
+                                        <h:panelGrid columns="2" >
+                                            <p:outputLabel value="Puntuación:" style="font-size: 15pt"/>
+                                            <p:rating value="3" readonly="true"/>
+                                        </h:panelGrid>
+                                    </h:panelGrid>
+                                    <p style="font-size: 14pt">#{_local.descripción}</p>
+                                </h:panelGrid>
+                            </h:panelGrid>
+                        </h:panelGrid>
+                    </p:tab>
+                </p:accordionPanel>
+            </h:form>
+            
+        </ui:define>
+    </ui:composition>
+</html>

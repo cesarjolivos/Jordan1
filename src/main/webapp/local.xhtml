@@ -1,0 +1,131 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!--
+Pagina que muestra la información de un local.
+-->    
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" 
+    "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:b="http://bootsfaces.net/ui"
+      xmlns:f="http://java.sun.com/jsf/core" 
+      xmlns:h="http://java.sun.com/jsf/html"
+      xmlns:p="http://primefaces.org/ui"
+      xmlns:ui="http://java.sun.com/jsf/facelets">
+    <ui:composition template="/Plantillas/local.xhtml">
+        
+        <ui:define name="left">
+            
+            <script type="text/javascript" src="http://maps.googleapis.com/maps/api/js"/>
+            <script type="text/javascript"> var marker = null;
+                function agregaMarcador(event) {
+                   if(window.marker!==null){ marker.setMap(null); }
+                    var punto=new google.maps.LatLng( event.latLng.lat(), event.latLng.lng() );
+                    window.marker = new google.maps.Marker({position:punto,title:'Lugar'});
+                    PF('map').addOverlay(marker);
+                };
+            </script>
+            
+            <h:graphicImage width="290" height="250"
+                            rendered="#{controladorLocal.local.imagen ne null}"
+                            value="data:image/png;base64,#{controladorLocal.local.imagenUrl}"/>
+            
+            <p:dataTable value="#{controladorLocal.local.transportes}" var="_transporte"
+                         scrollable="true" scrollHeight="150"> 
+                <p:column headerText="Estación" >
+                    <h:outputText value="#{_transporte.estacion}" />
+                </p:column>
+                <p:column headerText="Tipo">
+                    <h:outputText value="#{_transporte.tipo}" />
+                </p:column>
+            </p:dataTable>
+            
+            <h:form id="form">
+                <p:outputLabel value="Ubicacion" />
+                <p:gmap id="gmap" center="#{controladorLocal.local.latitud},#{controladorLocal.local.longitud}" 
+                        type="HYBRID" model="#{controladorLocal.mapa}" zoom="13" 
+                        style="height: 200pt" widgetVar="map" disableDoubleClickZoom="true" />
+            </h:form>
+        </ui:define>
+        
+        <ui:define name="content"> 
+            <br/>
+            <h:panelGrid columns="2" width="70%">
+                <p:outputLabel value="Establecimiento: #{controladorLocal.local.nombre} 
+                               (#{controladorLocal.local.alias})" />
+                <h:panelGrid columns="2" >
+                    <p:outputLabel value="Puntuación:"/>
+                    <p:rating value="3" readonly="true"/>
+                </h:panelGrid>
+            </h:panelGrid>
+            <br/><br/>
+            <h:panelGrid columns="1" width="70%">
+                <h:outputText value="Especialidad: #{controladorLocal.local.especialidad}"/>
+            </h:panelGrid>
+            <br/><br/>
+            <h:panelGrid columns="2">
+                <h:panelGrid style="width: 100%">
+                    <p:dataTable value="#{controladorLocal.local.menu}" 
+                                 var="_menu" scrollable="true" scrollHeight="150"> 
+                        <p:column headerText="Categoría" style="width:100px">
+                                    #{_menu.categoria}
+                        </p:column>
+                        <p:column headerText="Precio Min" style="width:80px">
+                                    #{_menu.precioMin}
+                        </p:column>
+                        <p:column headerText="Precio Max" style="width: 80px">
+                                    #{_menu.precioMax}
+                        </p:column>
+                    </p:dataTable>﻿
+                </h:panelGrid>
+                <h:panelGrid style="width: 55%; float: right; margin-right: 10%">
+                    <p:dataTable value="#{controladorLocal.local.servicios}"
+                                 var="_servicio" scrollable="true" scrollHeight="150">                       
+                        <p:column style="width:30px;text-align:center">
+                            <h:graphicImage id="imagen" width="30px"
+                                            rendered="#{_servicio.imagen ne null}"
+                                            value="data:image/png;base64,#{_servicio.imagenUrl}"/> 
+                        </p:column>
+                        <p:column headerText="Seleccione los servicio" >
+                                    #{_servicio.nombre}
+                        </p:column>
+                    </p:dataTable>
+                </h:panelGrid>
+            </h:panelGrid>
+            <center>
+                <p:panelGrid columns="1" style="width: 70%"> 
+                    <f:facet name="header">
+                        <p:column>Descripción</p:column>
+                    </f:facet>
+                    <h:outputText value="#{controladorLocal.local.descripción}"/>
+                </p:panelGrid>
+            </center>
+            <br/><br/>
+            <h:form rendered="#{controladorLogeo.sesionIniciada}">      
+                <h:panelGrid columns="1">
+                    <h:panelGrid columns="2" width="70%">
+                        <h:outputText value="Comentario"/>
+                        <h:panelGrid columns="2" cellpadding="5" style="text-align: right">
+                            <h:outputText value="Puntuación: " />
+                            <p:rating value="#{controladorLocal.comentario.calificación}"/>
+                        </h:panelGrid>
+                    </h:panelGrid>
+                    <p:inputTextarea cols="80" rows="2" placeholder="Comentario" 
+                                     value="#{controladorLocal.comentario.comentario}"/>
+                </h:panelGrid>
+                <p:commandButton value="Publicar" update=":publicacion @form"
+                                 actionListener="#{controladorLocal.guardarComentario()}"/>
+            </h:form>
+            <h:form id="publicacion" style="width: 100%">
+                <p:dataScroller value="#{controladorLocal.local.comentarios}" 
+                                var="_comentario" chunkSize="5"  style="width: 100%">
+                    <f:facet name="header" >
+                        COMENTARIOS
+                    </f:facet>
+                    <h:panelGrid columns="2">
+                       
+                    </h:panelGrid>
+                </p:dataScroller>
+            </h:form>
+        </ui:define>
+        
+    </ui:composition>   
+</html>
