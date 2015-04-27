@@ -6,6 +6,7 @@ package com.sow.jordan.controladores;
 import com.sow.jordan.agregarDatos.AgregarDatos;
 import com.sow.jordan.modelos.*;
 import com.sow.jordan.servicios.ServicioLocal;
+import com.sow.jordan.servicios.ServicioUsuario;
 import java.io.Serializable;
 import java.util.*;
 import javax.annotation.PostConstruct;
@@ -50,6 +51,12 @@ public class ControladorLocal implements Serializable{
     private String tipo;
     private Comentario comentario;
     
+    @Autowired
+    private ControladorUsuario controladorUsuario;
+    
+      @Autowired
+      private ServicioUsuario  servicioUsuario;
+    
     //private AgregarDatos agregarDatos;
 
     public int getIdTransporte() {
@@ -81,12 +88,15 @@ public class ControladorLocal implements Serializable{
         local.setMenu(new ArrayList<Menu>());
         local.setTransportes(new ArrayList<Transporte>());
         mapa = new DefaultMapModel(); 
+        this.comentario=new  Comentario();
     }
     
     /**
      * Método que guarda un local en la base de datos.
      */
     public void guardarLocal() {
+        //Usuario user=servicioUsuario.cargarUsuarios(controladorUsuario.getUsuario());
+        
         lugar = servicioLocal.buscarLugar(id);
         local.setLugar(lugar);
         servicioLocal.guardarLocal(local);
@@ -95,6 +105,7 @@ public class ControladorLocal implements Serializable{
         local.setMenu(new ArrayList<Menu>() );
         local.setTransportes(new ArrayList<Transporte>() );
         local.setComentario( new ArrayList<Comentario>() );
+        
     }
     
     /**
@@ -117,6 +128,8 @@ public class ControladorLocal implements Serializable{
     
     public void guardarComentario() {
         //comentario.setUsuario(null);
+        comentario.setLocal(local);
+        comentario.setUsuario(null);
         local.getComentarios().add(comentario);
         comentario = new Comentario();
     }
