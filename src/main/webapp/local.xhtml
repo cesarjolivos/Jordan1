@@ -13,7 +13,6 @@ Pagina que muestra la información de un local.
     <ui:composition template="/Plantillas/local.xhtml">
         
         <ui:define name="left">
-            
             <script type="text/javascript" src="http://maps.googleapis.com/maps/api/js"/>
             <script type="text/javascript"> var marker = null;
                 function agregaMarcador(event) {
@@ -23,21 +22,18 @@ Pagina que muestra la información de un local.
                     PF('map').addOverlay(marker);
                 };
             </script>
-            
             <h:graphicImage width="90%" height="100%"
                             rendered="#{controladorLocal.local.imagen ne null}"
                             value="data:image/png;base64,#{controladorLocal.local.imagenUrl}"/>
-            
             <p:dataTable value="#{controladorLocal.local.transportes}" var="_transporte"
                          scrollable="true" scrollHeight="150"> 
-                <p:column headerText="Estación" >
+                <p:column headerText="Estación" style="width: 50%">
                     <h:outputText value="#{_transporte.estacion}" />
                 </p:column>
-                <p:column headerText="Tipo">
+                <p:column headerText="Tipo" style="width: 50%">
                     <h:outputText value="#{_transporte.tipo}" />
                 </p:column>
             </p:dataTable>
-            
             <h:form id="form">
                 <p:outputLabel value="Ubicacion" />
                 <p:gmap id="gmap" center="#{controladorLocal.local.latitud},#{controladorLocal.local.longitud}" 
@@ -48,19 +44,17 @@ Pagina que muestra la información de un local.
         
         <ui:define name="content"> 
             <br/>
-            <h:panelGrid columns="2" width="70%">
+            <h:panelGrid columns="2" width="100%">
                 <p:outputLabel value="Establecimiento: #{controladorLocal.local.nombre} 
                                (#{controladorLocal.local.alias})" />
                 <h:panelGrid columns="2" >
                     <p:outputLabel value="Puntuación:"/>
-                    <p:rating value="3" readonly="true"/>
+                    <p:rating value="#{controladorLocal.local.calificacion}" readonly="true"/>
                 </h:panelGrid>
-            </h:panelGrid>
-            <br/><br/>
-            <h:panelGrid columns="1" width="70%">
+            </h:panelGrid><br/>
+            <h:panelGrid columns="1" width="100%">
                 <h:outputText value="Especialidad: #{controladorLocal.local.especialidad}"/>
-            </h:panelGrid>
-            <br/><br/>
+            </h:panelGrid><br/>
             <h:panelGrid columns="2">
                 <h:panelGrid style="width: 100%">
                     <p:dataTable value="#{controladorLocal.local.menu}" 
@@ -90,29 +84,28 @@ Pagina que muestra la información de un local.
                     </p:dataTable>
                 </h:panelGrid>
             </h:panelGrid>
-            <p:panelGrid columns="1" style="width: 79%"> 
+            <p:panelGrid columns="1" style="width: 100%"> 
                 <f:facet name="header">
                     <p:column>Descripción</p:column>
                 </f:facet>
                 <h:outputText value="#{controladorLocal.local.descripción}"/>
-            </p:panelGrid>
-            <br/><br/>
+            </p:panelGrid><br/>
             <h:form id="Coment" rendered="#{controladorLogeo.sesionIniciada}">      
-                <h:panelGrid id="edicion" columns="1">
-                    <h:panelGrid columns="2" width="70%">
+                <h:panelGrid id="edicion" columns="1" width="100%">
+                    <h:panelGrid columns="2" width="100%">
                         <h:outputText value="Comentario"/>
                         <h:panelGrid columns="2" cellpadding="5" style="text-align: right">
                             <h:outputText value="Puntuación: " />
                             <p:rating value="#{controladorLocal.comentario.calificación}"/>
                         </h:panelGrid>
                     </h:panelGrid>
-                    <p:inputTextarea id="comentario" cols="80" rows="2" placeholder="Comentario" 
+                    <p:inputTextarea id="comentario" style="width:99%" rows="2" placeholder="Comentario" 
                                      value="#{controladorLocal.comentario.comentario}"/>
                 </h:panelGrid>
                 <p:commandButton value="Publicar" update=":publicacion @form" ajax="true"
                                  onclick="publicaMensaje($('textarea[id=&quot;Coment:comentario&quot;]')[0].value)"
                                  actionListener="#{controladorLocal.guardarComentario(controladorLogeo.nombre)}"/>
-            </h:form>
+            </h:form><br/>
             <h:form id="publicacion" style="width: 100%">
                 <p:dataScroller value="#{controladorLocal.local.comentarios}" 
                                 var="_comentario" chunkSize="5"  style="width: 100%">
@@ -123,7 +116,7 @@ Pagina que muestra la información de un local.
                         <p:outputLabel value="#{_comentario.comentario}" />
                     </h:panelGrid>
                 </p:dataScroller>
-            </h:form>
+            </h:form><br/>
         </ui:define>
         
     </ui:composition>   
