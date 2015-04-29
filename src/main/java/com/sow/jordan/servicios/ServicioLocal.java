@@ -106,4 +106,6 @@ public interface ServicioLocal {
      */
     List<Transporte> porTipos(String tipo);
     
+    Local findById(Integer id);
+    
 }

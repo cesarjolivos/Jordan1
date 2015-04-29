@@ -1,0 +1,52 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!--
+Pagina que muestra la información de un local.
+-->    
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" 
+    "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:b="http://bootsfaces.net/ui"
+      xmlns:f="http://java.sun.com/jsf/core" 
+      xmlns:h="http://java.sun.com/jsf/html"
+      xmlns:p="http://primefaces.org/ui"
+      xmlns:ui="http://java.sun.com/jsf/facelets">
+    <ui:composition template="/Plantillas/local.xhtml">
+        
+        <ui:define name="left">
+            <h:graphicImage width="90%" height="100%"
+                            rendered="#{param['id_local'] ne null and consultaLocalUrl.getLocal(param['id_local']).imagen ne null}"
+                            value="data:image/png;base64,#{consultaLocalUrl.getLocal(param['id_local']).imagenUrl}"/>
+            <p:dataTable 
+                rendered="#{param['id_local'] ne null}"
+                value="#{consultaLocalUrl.getLocal(param['id_local']).transportes}" var="_transporte"
+                         scrollable="true" scrollHeight="150"> 
+                <p:column headerText="Estación" style="width: 50%">
+                    <h:outputText value="#{_transporte.estacion}" />
+                </p:column>
+                <p:column headerText="Tipo" style="width: 50%">
+                    <h:outputText value="#{_transporte.tipo}" />
+                </p:column>
+            </p:dataTable>
+            <h:form id="form" rendered="#{param['id_local'] ne null}">
+                <p:outputLabel value="Ubicacion" />
+                <p:gmap id="gmap" center="#{consultaLocalUrl.getLocal(param['id_local']).latitud},#{consultaLocalUrl.getLocal(param['id_local']).longitud}" 
+                        type="HYBRID" model="#{controladorLocal.mapa}" zoom="13" 
+                        style="height: 200pt" widgetVar="map" disableDoubleClickZoom="true" />
+            </h:form>
+        </ui:define>
+        
+        <ui:define name="content"> 
+            <br/>
+            <h:panelGrid columns="2" width="100%" rendered="#{param['id_local'] ne null}">
+                <p:outputLabel value="Establecimiento: #{consultaLocalUrl.getLocal(param['id_local']).nombre} 
+                               (#{consultaLocalUrl.getLocal(param['id_local']).alias})" />
+                <h:panelGrid columns="2" >
+                    <p:outputLabel value="Puntuación:"/>
+                    <p:rating value="#{consultaLocalUrl.getLocal(param['id_local']).calificacion}" readonly="true"/>
+                </h:panelGrid>
+            </h:panelGrid><br/>
+            
+        </ui:define>
+        
+    </ui:composition>   
+</html>

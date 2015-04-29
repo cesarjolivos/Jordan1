@@ -164,4 +164,8 @@ public class ServicioLocalImplementacion implements ServicioLocal{
         return repositorioTransporte.porTipos(tipo);
     }
     
+    @Override
+    public Local findById(Integer id) {
+        return repositorioLocal.findOne(id);
+    }
 }
