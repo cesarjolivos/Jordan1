@@ -33,11 +33,11 @@ public class ControladorUsuario implements Serializable {
     
     private List<Usuario> usuarios;
     
-    //private AgregarDatos agregarDatos;
+    private AgregarDatos agregarDatos;
 
     @PostConstruct
     public void inicia() {
-        //agregarDatos = new AgregarDatos(servicioUsuario);
+        agregarDatos = new AgregarDatos(servicioUsuario);
         usuarios = servicioUsuario.cargarUsuarios();
     }
     

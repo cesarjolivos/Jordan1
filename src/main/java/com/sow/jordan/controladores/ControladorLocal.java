@@ -52,30 +52,14 @@ public class ControladorLocal implements Serializable {
     private String tipo;
     private Comentario comentario;
     
-    //private AgregarDatos agregarDatos;
-
-    public int getIdTransporte() {
-        return idTransporte;
-    }
-
-    public void setIdTransporte(int idTransporte) {
-        this.idTransporte = idTransporte;
-    }
-
-    public String getTipo() {
-        return tipo;
-    }
-
-    public void setTipo(String tipo) {
-        this.tipo = tipo;
-    }
-
+    private AgregarDatos agregarDatos;
+    
     /**
      * Método que se ejecuta después de realizar la inyección de dependencias.
      */
     @PostConstruct
     public void inicio() {
-        //agregarDatos = new AgregarDatos(servicioLocal);
+        agregarDatos = new AgregarDatos(servicioLocal);
         servicios = servicioLocal.cargarServicios();
         lugares = servicioLocal.cargarLugares();
         transportes = servicioLocal.cargarTransportes();
@@ -382,7 +366,23 @@ public class ControladorLocal implements Serializable {
      */
     public void setId(int id) {
         this.id = id;
-    }    
+    }   
+    
+    public int getIdTransporte() {
+        return idTransporte;
+    }
+
+    public void setIdTransporte(int idTransporte) {
+        this.idTransporte = idTransporte;
+    }
+
+    public String getTipo() {
+        return tipo;
+    }
+
+    public void setTipo(String tipo) {
+        this.tipo = tipo;
+    }
     
     public MapModel getMapa() {
         mapa = new DefaultMapModel(); 
