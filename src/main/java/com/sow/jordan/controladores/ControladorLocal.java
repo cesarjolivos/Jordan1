@@ -6,7 +6,6 @@ package com.sow.jordan.controladores;
 import com.sow.jordan.agregarDatos.AgregarDatos;
 import com.sow.jordan.modelos.*;
 import com.sow.jordan.servicios.ServicioLocal;
-import com.sow.jordan.servicios.ServicioUsuario;
 import java.io.Serializable;
 import java.util.*;
 import javax.annotation.PostConstruct;
@@ -30,8 +29,10 @@ import org.springframework.stereotype.Controller;
  */
 @Controller("controladorLocal")
 @Scope("session")
-public class ControladorLocal implements Serializable{
+public class ControladorLocal implements Serializable {
 
+    @Autowired
+    private ControladorUsuario controladorUsuario;
     @Autowired
     private ServicioLocal servicioLocal;
     
@@ -50,12 +51,6 @@ public class ControladorLocal implements Serializable{
     private int idTransporte;
     private String tipo;
     private Comentario comentario;
-    
-    @Autowired
-    private ControladorUsuario controladorUsuario;
-    
-      @Autowired
-      private ServicioUsuario  servicioUsuario;
     
     //private AgregarDatos agregarDatos;
 
@@ -95,8 +90,6 @@ public class ControladorLocal implements Serializable{
      * Método que guarda un local en la base de datos.
      */
     public void guardarLocal() {
-        //Usuario user=servicioUsuario.cargarUsuarios(controladorUsuario.getUsuario());
-        
         lugar = servicioLocal.buscarLugar(id);
         local.setLugar(lugar);
         servicioLocal.guardarLocal(local);
@@ -126,12 +119,12 @@ public class ControladorLocal implements Serializable{
         menu = new Menu();
     }
     
-    public void guardarComentario() {
-        //comentario.setUsuario(null);
+    public void guardarComentario(String usuario) {
         comentario.setLocal(local);
-        comentario.setUsuario(null);
+        controladorUsuario.guardarComentario(usuario,comentario);
         local.getComentarios().add(comentario);
-        comentario = new Comentario();
+        servicioLocal.guardarLocal(local);
+        locales = servicioLocal.cargarLocales();
     }
     
     /**

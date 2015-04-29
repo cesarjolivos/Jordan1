@@ -20,5 +20,8 @@ public interface RepositorioUsuario extends CrudRepository<Usuario, String>{
     
     @Query("SELECT usuario FROM Usuario usuario")
     List<Usuario> cargarUsuarios();
+    
+    @Query("SELECT usuario FROM Usuario usuario WHERE usuario.id = ?")
+    Usuario buscarUsuario(String id);
    
 }

@@ -4,6 +4,7 @@
 package com.sow.jordan.controladores;
 
 import com.sow.jordan.agregarDatos.AgregarDatos;
+import com.sow.jordan.modelos.Comentario;
 import com.sow.jordan.modelos.Usuario;
 import com.sow.jordan.servicios.ServicioUsuario;
 import java.io.*;
@@ -45,6 +46,14 @@ public class ControladorUsuario implements Serializable {
         usuarios = servicioUsuario.cargarUsuarios();
         //agregarDatos.serializarUsuarios(usuarios);
         this.usuario = new Usuario();
+    }
+    
+    public void guardarComentario(String usuario,Comentario comentario) {
+        this.usuario = servicioUsuario.buscarUsuario(usuario);
+        comentario.setUsuario(this.usuario);
+        this.usuario.getComentarios().add(comentario);
+        guardarUsuario();
+        
     }
     
     public void eliminarUsuario(Usuario usuario){

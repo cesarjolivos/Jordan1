@@ -111,7 +111,7 @@ Pagina que muestra la información de un local.
                 </h:panelGrid>
                 <p:commandButton value="Publicar" update=":publicacion @form" ajax="true"
                                  onclick="publicaMensaje($('textarea[id=&quot;Coment:comentario&quot;]')[0].value)"
-                                 actionListener="#{controladorLocal.guardarComentario()}"/>
+                                 actionListener="#{controladorLocal.guardarComentario(controladorLogeo.nombre)}"/>
             </h:form>
             <h:form id="publicacion" style="width: 100%">
                 <p:dataScroller value="#{controladorLocal.local.comentarios}" 

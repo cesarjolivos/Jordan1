@@ -35,5 +35,10 @@ public class ServicioUsuarioImplementacion implements ServicioUsuario {
     public void eliminarUsuario(Usuario usuario) {
         repositorioUsuario.delete(usuario);
     }
+
+    @Override
+    public Usuario buscarUsuario(String id) {
+        return repositorioUsuario.buscarUsuario(id);
+    }
     
 }

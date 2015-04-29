@@ -14,7 +14,7 @@ import static javax.swing.JOptionPane.*;
  * Clase que se encagra de agregar datos.
  * @author OLivos Navarro Cesar J.
  */
-public class AgregarDatos {
+public final class AgregarDatos implements Serializable {
     
     private ServicioLocal servicioLocal;
     private ServicioUsuario servicioUsuario;
@@ -23,15 +23,15 @@ public class AgregarDatos {
     public AgregarDatos(ServicioLocal servicioLocal) {
         this.servicioLocal = servicioLocal;
         ruta = "/home/olivos/Documentos/SistemaJordan/";
-        cargarServiciosSerializados(ruta);
-        cargarLugaresSerializados(ruta);
-        cargarTransportesSerializados(ruta);
+        //cargarServiciosSerializados(ruta);
+        //cargarLugaresSerializados(ruta);
+        //cargarTransportesSerializados(ruta);
     }
     
     public AgregarDatos(ServicioUsuario servicioUsuario) {
         this.servicioUsuario = servicioUsuario;
         ruta = "/home/olivos/Documentos/SistemaJordan/";
-        cargarUsuariosSerializados(ruta);
+        //cargarUsuariosSerializados(ruta);
     }
 
     public String getRuta() {
@@ -136,13 +136,13 @@ public class AgregarDatos {
             lector.close();
         } catch (FileNotFoundException ex) {
             showMessageDialog(null,
-                    "Ha ocurrido un error, no se han podido cargar  datos de los usuarios correctamente"
+                    "Ha ocurrido un error, no se han podido cargar  datos de los servicios correctamente"
                     + "\nAsegurate de que el archivo exista y se encuentre en el directorio correcto.",
                     "Error irrecuperable", ERROR_MESSAGE);
             System.exit(1);
         } catch (IOException ex) {
             showMessageDialog(null,
-                    "Ha ocurrido un error, no se han podido cargar los empleados correctamente"
+                    "Ha ocurrido un error, no se han podido cargar los servicios correctamente"
                     + "\nAsegurate de que el archivo exista y se encuentre en el directorio correcto.",
                     "Error irrecuperable", ERROR_MESSAGE);
             System.exit(1);
@@ -167,13 +167,13 @@ public class AgregarDatos {
             lector.close();
         } catch (FileNotFoundException ex) {
             showMessageDialog(null,
-                    "Ha ocurrido un error, no se han podido cargar  datos de los usuarios correctamente"
+                    "Ha ocurrido un error, no se han podido cargar  datos de los lugares correctamente"
                     + "\nAsegurate de que el archivo exista y se encuentre en el directorio correcto.",
                     "Error irrecuperable", ERROR_MESSAGE);
             System.exit(1);
         } catch (IOException ex) {
             showMessageDialog(null,
-                    "Ha ocurrido un error, no se han podido cargar los empleados correctamente"
+                    "Ha ocurrido un error, no se han podido cargar los lugares correctamente"
                     + "\nAsegurate de que el archivo exista y se encuentre en el directorio correcto.",
                     "Error irrecuperable", ERROR_MESSAGE);
             System.exit(1);
@@ -198,13 +198,13 @@ public class AgregarDatos {
             lector.close();
         } catch (FileNotFoundException ex) {
             showMessageDialog(null,
-                    "Ha ocurrido un error, no se han podido cargar  datos de los usuarios correctamente"
+                    "Ha ocurrido un error, no se han podido cargar  datos de los transportes correctamente"
                     + "\nAsegurate de que el archivo exista y se encuentre en el directorio correcto.",
                     "Error irrecuperable", ERROR_MESSAGE);
             System.exit(1);
         } catch (IOException ex) {
             showMessageDialog(null,
-                    "Ha ocurrido un error, no se han podido cargar los empleados correctamente"
+                    "Ha ocurrido un error, no se han podido cargar los transportes correctamente"
                     + "\nAsegurate de que el archivo exista y se encuentre en el directorio correcto.",
                     "Error irrecuperable", ERROR_MESSAGE);
             System.exit(1);
@@ -235,7 +235,7 @@ public class AgregarDatos {
             System.exit(1);
         } catch (IOException ex) {
             showMessageDialog(null,
-                    "Ha ocurrido un error, no se han podido cargar los empleados correctamente"
+                    "Ha ocurrido un error, no se han podido cargar los usuarios correctamente"
                     + "\nAsegurate de que el archivo exista y se encuentre en el directorio correcto.",
                     "Error irrecuperable", ERROR_MESSAGE);
             System.exit(1);
