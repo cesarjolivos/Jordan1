@@ -41,7 +41,7 @@ public class Usuario implements Serializable {
             cascade = CascadeType.ALL,
             mappedBy = "usuario",
             orphanRemoval = true)
-    private  List<Comentario> comentarios;
+    private  List<Calificación> comentarios;
 
     public String getUsuario() {
         return usuario;
@@ -91,11 +91,11 @@ public class Usuario implements Serializable {
         this.activo = activo;
     }
 
-    public  List<Comentario> getComentarios() {
+    public  List<Calificación> getComentarios() {
         return comentarios;
     }
 
-    public void setComentarios( List<Comentario> comentarios) {
+    public void setComentarios( List<Calificación> comentarios) {
         this.comentarios = comentarios;
     }
     

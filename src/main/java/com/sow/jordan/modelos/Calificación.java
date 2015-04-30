@@ -16,7 +16,7 @@ import javax.persistence.*;
  */
 @Entity
 @Table(name="Comentario")
-public class Comentario implements Serializable {
+public class Calificación implements Serializable {
     
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
@@ -29,8 +29,6 @@ public class Comentario implements Serializable {
     private Usuario usuario;
    
     private Integer calificación;
-    
-    private String comentario;
 
     public Integer getId() {
         return id;
@@ -62,14 +60,6 @@ public class Comentario implements Serializable {
 
     public void setCalificación(Integer calificación) {
         this.calificación = calificación;
-    }
-
-    public String getComentario() {
-        return comentario;
-    }
-
-    public void setComentario(String comentario) {
-        this.comentario = comentario;
     }
         
 }

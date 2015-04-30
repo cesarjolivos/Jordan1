@@ -102,7 +102,7 @@ public class Local implements Serializable {
             cascade = CascadeType.ALL,
             mappedBy = "local",
             orphanRemoval = true)
-    private  List<Comentario> comentarios;
+    private  List<Calificación> comentarios;
     
     private Integer calificacion;
     
@@ -313,11 +313,11 @@ public class Local implements Serializable {
         this.transportes = transportes;
     }
     
-    public  List<Comentario> getComentarios() {
+    public  List<Calificación> getComentarios() {
         return comentarios;
     }
 
-    public void setComentario( List<Comentario> comentarios) {
+    public void setComentario( List<Calificación> comentarios) {
         this.comentarios = comentarios;
     }
     

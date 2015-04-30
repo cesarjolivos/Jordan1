@@ -50,7 +50,7 @@ public class ControladorLocal implements Serializable {
     private int id;
     private int idTransporte;
     private String tipo;
-    private Comentario comentario;
+    private Calificación comentario;
     
     private AgregarDatos agregarDatos;
     
@@ -67,7 +67,7 @@ public class ControladorLocal implements Serializable {
         local.setMenu(new ArrayList<Menu>());
         local.setTransportes(new ArrayList<Transporte>());
         mapa = new DefaultMapModel(); 
-        this.comentario=new  Comentario();
+        this.comentario=new  Calificación();
     }
     
     /**
@@ -81,7 +81,7 @@ public class ControladorLocal implements Serializable {
         local = new Local();
         local.setMenu(new ArrayList<Menu>() );
         local.setTransportes(new ArrayList<Transporte>() );
-        local.setComentario( new ArrayList<Comentario>() );
+        local.setComentario( new ArrayList<Calificación>() );
         
     }
     
@@ -395,11 +395,11 @@ public class ControladorLocal implements Serializable {
         this.mapa = mapa;
     }
 
-    public Comentario getComentario() {
+    public Calificación getComentario() {
         return comentario;
     }
 
-    public void setComentario(Comentario comentario) {
+    public void setComentario(Calificación comentario) {
         this.comentario = comentario;
     }
     

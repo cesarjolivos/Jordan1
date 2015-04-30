@@ -3,11 +3,8 @@
  */
 package com.sow.jordan.controladores;
 
-import com.sow.jordan.modelos.Usuario;
-import com.sow.jordan.servicios.ServicioUsuario;
 import java.io.Serializable;
 import javax.annotation.PostConstruct;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Scope;
 import org.springframework.security.authentication.AnonymousAuthenticationToken;
 import org.springframework.security.core.Authentication;
@@ -25,7 +22,7 @@ import org.springframework.stereotype.Controller;
  */
 @Controller("controladorLogeo")
 @Scope("request")
-public class ControladorLogeo implements Serializable {
+public class ControladorSesion implements Serializable {
     
     private boolean sesionIniciada = false;
 
@@ -69,6 +66,16 @@ public class ControladorLogeo implements Serializable {
                 return "administrador.xhtml";
         }
         return null;
+    }
+    
+    public boolean esAdministrador(){
+        switch (privilegio) {
+            case "ROLE_ADMIN":
+                return true;
+            case "ROLE_ROOT":
+                return true;
+        }
+        return false;
     }
     
 }

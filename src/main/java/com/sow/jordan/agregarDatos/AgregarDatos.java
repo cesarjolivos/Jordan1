@@ -4,8 +4,7 @@
 package com.sow.jordan.agregarDatos;
 
 import com.sow.jordan.modelos.*;
-import com.sow.jordan.servicios.ServicioLocal;
-import com.sow.jordan.servicios.ServicioUsuario;
+import com.sow.jordan.servicios.*;
 import java.io.*;
 import java.util.*;
 import static javax.swing.JOptionPane.*;
@@ -23,15 +22,15 @@ public final class AgregarDatos implements Serializable {
     public AgregarDatos(ServicioLocal servicioLocal) {
         this.servicioLocal = servicioLocal;
         ruta = "/home/olivos/Documentos/SistemaJordan/";
-        //cargarServiciosSerializados(ruta);
-        //cargarLugaresSerializados(ruta);
-        //cargarTransportesSerializados(ruta);
+        cargarServiciosSerializados(ruta);
+        cargarLugaresSerializados(ruta);
+        cargarTransportesSerializados(ruta);
     }
     
     public AgregarDatos(ServicioUsuario servicioUsuario) {
         this.servicioUsuario = servicioUsuario;
         ruta = "/home/olivos/Documentos/SistemaJordan/";
-        //cargarUsuariosSerializados(ruta);
+        cargarUsuariosSerializados(ruta);
     }
 
     public String getRuta() {
